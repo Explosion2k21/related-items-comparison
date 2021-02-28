@@ -1,3 +1,3 @@
-import NameOfTheService from './components/NameOfTheService.jsx';
+import RelatedCardList from './components/RelatedCardList.jsx';
 
-window.NameOfTheService = NameOfTheService;
+window.RelatedCardList = RelatedCardList;
