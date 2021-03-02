@@ -1,5 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import Carousel from 'react-elastic-carousel'
+import RelatedCard from './RelatedProducts.jsx'
+import Outfits from './Outfits.jsx'
 
 
 
@@ -11,35 +14,58 @@ export default class RelatedCardList extends React.Component {
       this.state = {
         data : []
       };
+      
   
     }
-  
     componentDidMount() {
-      console.log("service mounted");
-      axios.get('/products').then((res)=>
-      this.setState({data : res.data}))
-      .catch((err)=>{
-        console.log(err)
+      axios.get('/api/products/11049')
+      .then(({data})=>{
+        console.log ("data", data)
+      this.setState({data : data})
+     })
+      .catch((error)=>{
+        console.log(error)
       })
-  
+      
     }
+    
 
     render() {
+      const breakPoints = [
+        { width: 1, itemsToShow: 4 },
+        { width: 550, itemsToShow: 4, itemsToScroll: 2 },
+        { width: 768, itemsToShow: 4 },
+        { width: 1200, itemsToShow: 4 }
+      ];
   return (
-    <div className='cont'>
-            {this.state.data.map((element,index)=>(
-          <div className='card'  key={index}>
-             <h1>{element.category}</h1>
-             <img src='http://cdn.shopify.com/s/files/1/0023/9901/0881/products/K-Hometown-Down-Jacket-Sulpher-Spring_1024x1024.jpg?v=1598641607'/>
-    
-              <h1>{element.name}</h1>
-             <h1>{element.default_price}</h1>
-            
-             <p>{element.description}</p>
-             </div> 
-      ))}
+   
+         <div>
+          <div>
+            <h1>Related Products</h1> <br></br>
+            <Carousel breakPoints={breakPoints}>
+              {this.state.data.map((element,index)=>{
+                 return <RelatedCard element={element}  key={index}/>
+              })}
+              
+              </Carousel>
+         
+         
           </div>
-    );
-  }
 
-}
+          <div>
+            <h1>Our outfits</h1> <br></br>
+            <Carousel breakPoints={breakPoints}>
+              {this.state.data.map((element,index)=>{
+                 return <Outfits element={element}  key={index}/>
+              })}
+              
+              </Carousel>
+         
+         
+          </div>
+          
+           </div>
+        
+)}
+
+ }
