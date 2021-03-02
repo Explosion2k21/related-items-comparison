@@ -3,9 +3,7 @@ import axios from 'axios';
 import Carousel from 'react-elastic-carousel'
 import RelatedCard from './RelatedProducts.jsx'
 import Outfits from './Outfits.jsx'
-
-
-
+import Comparing from './Comparing.jsx'
 
 export default class RelatedCardList extends React.Component {
     constructor() {
@@ -17,6 +15,8 @@ export default class RelatedCardList extends React.Component {
       
   
     }
+
+    // Getting the related products for a specific product 
     componentDidMount() {
       axios.get('/api/products/11049')
       .then(({data})=>{
@@ -31,6 +31,7 @@ export default class RelatedCardList extends React.Component {
     
 
     render() {
+      // rendering a carousel with 4 cards
       const breakPoints = [
         { width: 1, itemsToShow: 4 },
         { width: 550, itemsToShow: 4, itemsToScroll: 2 },
@@ -41,6 +42,7 @@ export default class RelatedCardList extends React.Component {
    
          <div>
           <div>
+            {/* related products carousel */}
             <h1>Related Products</h1> <br></br>
             <Carousel breakPoints={breakPoints}>
               {this.state.data.map((element,index)=>{
@@ -48,10 +50,8 @@ export default class RelatedCardList extends React.Component {
               })}
               
               </Carousel>
-         
-         
-          </div>
-
+              </div>
+         {/*  carousel for added Outfits */}
           <div>
             <h1>Our outfits</h1> <br></br>
             <Carousel breakPoints={breakPoints}>
@@ -60,9 +60,13 @@ export default class RelatedCardList extends React.Component {
               })}
               
               </Carousel>
-         
-         
+              
           </div>
+          <Comparing/>
+
+        
+
+        
           
            </div>
         

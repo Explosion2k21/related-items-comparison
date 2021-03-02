@@ -10,7 +10,7 @@ app.use(express.static(path.join(__dirname, '../public')));
  
 
 
-
+// get request for the relates products and their styles 
  app.get("/api/products/:product_id" , async(req, res)=>{
    var data=[]
  await axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/products/${req.params.product_id}/related`, {
@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, '../public')));
       .then(product => data.push(product.data))
       .catch((err)=>console.log(err))
 
-       
+    // get request to get the styles data for getting the images 
      await axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/products/${related.data[i]}/styles`, {
       headers: {
         Authorization: process.env.API_KEY,
@@ -51,23 +51,22 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 
  
- 
-// app.get("/reviews/rating" , (req, res)=>{
-//   console.log(req.params)
-//     try{
-//     const {data}=  await
-//         axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/reviews?product_id=11048`, {
-//           headers: {
-//             Authorization: process.env.API_KEY,
-//           },
-//         })
-//         console.log(data);
-//         res.send(data)
-//     } 
-//       catch(err){
-//         res.send(err)
-//       }  
-//     })
+ // get request for the reviews
+ app.get("/reviews/:id" ,(req, res)=>{
+        axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/reviews?product_id=${req.params.id}`, {
+          headers: {
+            Authorization: process.env.API_KEY,
+          },
+        })
+       .then(({data})=>{
+        res.send(data)
+       })
+       .catch((err)=> {
+         console.log(err)
+       })
+       
+    
+    })
 
 
 

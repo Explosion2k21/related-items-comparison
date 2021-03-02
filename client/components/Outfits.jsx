@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import StarRatings from "react-star-ratings"
+// import Example from './ComparisonModal'
 
 export default class Outfits extends React.Component {
     constructor(props) {
@@ -12,9 +13,11 @@ export default class Outfits extends React.Component {
 
     render() {
         return (
-            <div className='cards-container'>    
+            <div className='cards-container'>   
+            {/* hardcoded card info  */}
         <div>
             <span className="far fa-times-circle circle"></span>
+            {/* hardcoded image */}
              <img className="image" src="https://www.smallwoods.org.uk/assets/Uploads/Documents/ac72cd8e0a/product-default-img__FitMaxWzEwMDAsODAwXQ.jpg"></img> 
         </div>
  
@@ -24,11 +27,12 @@ export default class Outfits extends React.Component {
                 <StarRatings
                rating={3.8}
                starRatedColor="rgb(80, 80, 80)"
-             starDimension="15px"
+               starDimension="15px"
                 starSpacing="1px"
                 numberOfStars={5}
                name="rating"
           />
+          
             
              </div>
           
