@@ -1,0 +1,94 @@
+
+        img {
+        height: 25rem;
+        width: 100%;
+      }
+      .card {
+        float : left;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 200px;
+        margin: auto;
+        text-align: center;
+        font-family: arial;
+        margin-bottom:2em;
+        height:20%;
+      
+      }
+      
+      .price {
+        margin-top:2em;
+        color: grey;
+        font-size: 22px;
+      }
+      .category {
+      margin-top:1em;
+      margin-bottom:7px;
+      color:grey;
+      font-size:22px;
+      }
+      .name {
+      margin-bottom:7px;
+      font-size: 18px;
+      }
+   
+
+   .circle {
+     position:absolute;
+    margin-top: 10px;
+    margin-left: 400px;
+    }  
+   .star {
+    position:absolute;
+    margin-top: 10px;
+    margin-left: 400px;
+    color : white;
+    }
+
+.name {
+  font-family: 'Times New Roman', serif;
+}
+.cards-container {
+  margin-left:1em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  background-color: white;
+
+  
+}
+
+th, td {
+  text-align: center;
+  padding: 12px;
+  color:grey;
+}
+
+th:first-child, td:first-child {
+  text-align: center;
+}
+
+.fa-check {
+  color: green;
+}
+
+.modal {
+  margin-top: 10%;
+  width: 30%;
+  margin-left:40%;
+  background-color: white;
+  border:thin grey;
+
+
+}
+
+h2 {
+  margin-top:1em;
+  color:grey;
+}
+
+
+      
+
