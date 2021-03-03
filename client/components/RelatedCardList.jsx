@@ -10,15 +10,16 @@ export default class RelatedCardList extends React.Component {
       super();
   
       this.state = {
-        data : []
+        data : [],
+        rating:[],
       };
-      
+     
   
     }
 
     // Getting the related products for a specific product 
-    componentDidMount() {
-      axios.get('/api/products/11049')
+     fetchData(){
+      axios.get(`/api/products/11048`)
       .then(({data})=>{
         console.log ("data", data)
       this.setState({data : data})
@@ -26,8 +27,25 @@ export default class RelatedCardList extends React.Component {
       .catch((error)=>{
         console.log(error)
       })
-      
     }
+   //getting ratings 
+  ratingReviews(){
+      axios.get(`/reviews/11048`)  
+      .then(({data})=>{
+        console.log('ratingdata',data)
+      this.setState({rating:data})
+     })
+      .catch((error)=>{
+        console.log(error)
+      })
+
+    }
+
+    componentDidMount() {
+      this.fetchData()
+      this.ratingReviews()
+    }
+  
     
 
     render() {
@@ -38,6 +56,27 @@ export default class RelatedCardList extends React.Component {
         { width: 768, itemsToShow: 4 },
         { width: 1200, itemsToShow: 4 }
       ];
+    
+     var result=[]
+     var ratings=0
+     var counter=0 
+     this.state.rating.map((element)=>{
+       if(element.results.length===0){
+         result.push(0)
+         ratings=0
+         counter=0
+       }
+       element.results.map((e,i)=>{
+         ratings+=e.rating
+         counter +=1
+         if(counter ===5 ) {
+           result.push(ratings)
+           ratings=0
+           counter=0
+         }
+       })
+     })
+
   return (
    
          <div>
@@ -46,7 +85,7 @@ export default class RelatedCardList extends React.Component {
             <h1>Related Products</h1> <br></br>
             <Carousel breakPoints={breakPoints}>
               {this.state.data.map((element,index)=>{
-                 return <RelatedCard element={element}  key={index}/>
+                 return <RelatedCard element={element}  rates={result[index]}  key={index}/>
               })}
               
               </Carousel>

@@ -1,7 +1,6 @@
 import React from 'react';
-import axios from 'axios';
 import StarRatings from "react-star-ratings"
-// import Example from './ComparisonModal'
+
 
 export default class Outfits extends React.Component {
     constructor(props) {
