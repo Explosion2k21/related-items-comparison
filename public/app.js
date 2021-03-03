@@ -1862,7 +1862,7 @@ var _App2 = _interopRequireDefault(_App);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('related'));
+_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('service3'));
 
 /***/ }),
 /* 27 */
@@ -30518,7 +30518,7 @@ var RelatedCardList = function (_React$Component) {
     value: function fetchData() {
       var _this2 = this;
 
-      _axios2.default.get('/api/products/11048').then(function (_ref) {
+      _axios2.default.get('http://localhost:3003/related/products/11048').then(function (_ref) {
         var data = _ref.data;
 
         console.log("data", data);
@@ -30534,7 +30534,7 @@ var RelatedCardList = function (_React$Component) {
     value: function ratingReviews() {
       var _this3 = this;
 
-      _axios2.default.get('/reviews/11048').then(function (_ref2) {
+      _axios2.default.get('http://localhost:3003/related/reviews/11048').then(function (_ref2) {
         var data = _ref2.data;
 
         console.log('ratingdata', data);
