@@ -3,19 +3,19 @@ import ReactModal from 'react-modal';
 
 
 export default class Comparing extends React.Component {
-  constructor () {
+  constructor() {
     super();
     this.state = {
       showModal: false
     };
-    
+
   }
-  
-  
-  render () {
+
+
+  render() {
     return (
       <div>
-          {/* <button onClick={this.handleCloseModal}>Close Modal</button> */}
+        {/* <button onClick={this.handleCloseModal}>Close Modal</button> */}
       </div>
     );
   }
