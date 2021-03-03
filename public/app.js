@@ -30225,7 +30225,8 @@ var RelatedCardList = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (RelatedCardList.__proto__ || Object.getPrototypeOf(RelatedCardList)).call(this));
 
     _this.state = {
-      data: []
+      data: [],
+      rating: []
     };
 
     return _this;
@@ -30235,11 +30236,11 @@ var RelatedCardList = function (_React$Component) {
 
 
   _createClass(RelatedCardList, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
+    key: 'fetchData',
+    value: function fetchData() {
       var _this2 = this;
 
-      _axios2.default.get('/api/products/11049').then(function (_ref) {
+      _axios2.default.get('/api/products/11048').then(function (_ref) {
         var data = _ref.data;
 
         console.log("data", data);
@@ -30248,11 +30249,54 @@ var RelatedCardList = function (_React$Component) {
         console.log(error);
       });
     }
+    //getting ratings 
+
+  }, {
+    key: 'ratingReviews',
+    value: function ratingReviews() {
+      var _this3 = this;
+
+      _axios2.default.get('/reviews/11048').then(function (_ref2) {
+        var data = _ref2.data;
+
+        console.log('ratingdata', data);
+        _this3.setState({ rating: data });
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.fetchData();
+      this.ratingReviews();
+    }
   }, {
     key: 'render',
     value: function render() {
       // rendering a carousel with 4 cards
       var breakPoints = [{ width: 1, itemsToShow: 4 }, { width: 550, itemsToShow: 4, itemsToScroll: 2 }, { width: 768, itemsToShow: 4 }, { width: 1200, itemsToShow: 4 }];
+
+      var result = [];
+      var ratings = 0;
+      var counter = 0;
+      this.state.rating.map(function (element) {
+        if (element.results.length === 0) {
+          result.push(0);
+          ratings = 0;
+          counter = 0;
+        }
+        element.results.map(function (e, i) {
+          ratings += e.rating;
+          counter += 1;
+          if (counter === 5) {
+            result.push(ratings);
+            ratings = 0;
+            counter = 0;
+          }
+        });
+      });
+
       return _react2.default.createElement(
         'div',
         null,
@@ -30270,7 +30314,7 @@ var RelatedCardList = function (_React$Component) {
             _reactElasticCarousel2.default,
             { breakPoints: breakPoints },
             this.state.data.map(function (element, index) {
-              return _react2.default.createElement(_RelatedProducts2.default, { element: element, key: index });
+              return _react2.default.createElement(_RelatedProducts2.default, { element: element, rates: result[index], key: index });
             })
           )
         ),
@@ -37083,21 +37127,6 @@ var RelatedCard = function (_React$Component) {
     return _this;
   }
 
-  // componentDidMount() {
-  //     axios.get('/api/products/11049')
-  //     .then(({data})=>{
-  //     this.setState({data : data})
-  //    })
-
-  //    console.log('daaattaaa', data)
-  //     .catch((error)=>{
-  //       console.log(error)
-  //     })
-
-
-  //  }
-
-
   _createClass(RelatedCard, [{
     key: 'handleOpenModal',
     value: function handleOpenModal() {
@@ -37111,18 +37140,6 @@ var RelatedCard = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      // const result = this.state.data;
-      // var totalRating = 0;
-      // var totalUsers = this.state.data.length;
-      // result.map((element) => {
-      //   totalRating += element.rating;
-      // });
-      // // console.log("totalRating",totalRating);
-      // console.log("users",totalUsers);
-      // var currentRate = totalRating / totalUsers
-      // console.log(currentRate);
-
-
       return (
 
         // rendering the related products information    
@@ -37149,113 +37166,117 @@ var RelatedCard = function (_React$Component) {
                 'table',
                 { className: 'table' },
                 _react2.default.createElement(
-                  'tr',
+                  'tbody',
                   null,
                   _react2.default.createElement(
-                    'th',
+                    'tr',
                     null,
-                    'Product short Name'
-                  ),
-                  _react2.default.createElement('th', null),
-                  _react2.default.createElement(
-                    'th',
-                    null,
-                    'Product short Name'
-                  )
-                ),
-                _react2.default.createElement(
-                  'tr',
-                  null,
-                  _react2.default.createElement(
-                    'td',
-                    null,
-                    _react2.default.createElement('i', { 'class': 'fa fa-check' })
+                    _react2.default.createElement(
+                      'th',
+                      null,
+                      'Product short Name'
+                    ),
+                    _react2.default.createElement('th', null),
+                    _react2.default.createElement(
+                      'th',
+                      null,
+                      'Product short Name'
+                    )
                   ),
                   _react2.default.createElement(
-                    'td',
+                    'tr',
                     null,
-                    'feature description'
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      _react2.default.createElement('i', { className: 'fa fa-check' })
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      'feature description'
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      _react2.default.createElement('i', { className: 'fa fa-check' })
+                    )
                   ),
                   _react2.default.createElement(
-                    'td',
+                    'tr',
                     null,
-                    _react2.default.createElement('i', { 'class': 'fa fa-check' })
-                  )
-                ),
-                _react2.default.createElement(
-                  'tr',
-                  null,
-                  _react2.default.createElement(
-                    'td',
-                    null,
-                    _react2.default.createElement('i', { 'class': 'fa fa-check' })
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      _react2.default.createElement('i', { className: 'fa fa-check' })
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      'feature description'
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      _react2.default.createElement('i', { className: 'fa fa-check' })
+                    )
                   ),
                   _react2.default.createElement(
-                    'td',
+                    'tr',
                     null,
-                    'feature description'
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      _react2.default.createElement('i', { className: 'fa fa-check' })
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      'feature description'
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      _react2.default.createElement('i', { className: 'fa fa-check' })
+                    )
                   ),
                   _react2.default.createElement(
-                    'td',
+                    'tr',
                     null,
-                    _react2.default.createElement('i', { 'class': 'fa fa-check' })
-                  )
-                ),
-                _react2.default.createElement(
-                  'tr',
-                  null,
-                  _react2.default.createElement(
-                    'td',
-                    null,
-                    _react2.default.createElement('i', { 'class': 'fa fa-check' })
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      _react2.default.createElement('i', { className: 'fa fa-check' })
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      'feature description'
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      _react2.default.createElement('i', { className: 'fa fa-check' })
+                    )
                   ),
                   _react2.default.createElement(
-                    'td',
+                    'tr',
                     null,
-                    'feature description'
-                  ),
-                  _react2.default.createElement(
-                    'td',
-                    null,
-                    _react2.default.createElement('i', { 'class': 'fa fa-check' })
-                  )
-                ),
-                _react2.default.createElement(
-                  'tr',
-                  null,
-                  _react2.default.createElement(
-                    'td',
-                    null,
-                    _react2.default.createElement('i', { 'class': 'fa fa-check' })
-                  ),
-                  _react2.default.createElement(
-                    'td',
-                    null,
-                    'feature description'
-                  ),
-                  _react2.default.createElement(
-                    'td',
-                    null,
-                    _react2.default.createElement('i', { 'class': 'fa fa-check' })
-                  )
-                ),
-                _react2.default.createElement(
-                  'tr',
-                  null,
-                  _react2.default.createElement(
-                    'td',
-                    null,
-                    _react2.default.createElement('i', { 'class': 'fa fa-check' })
-                  ),
-                  _react2.default.createElement(
-                    'td',
-                    null,
-                    'feature description'
-                  ),
-                  _react2.default.createElement(
-                    'td',
-                    null,
-                    _react2.default.createElement('i', { 'class': 'fa fa-check' })
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      _react2.default.createElement('i', { className: 'fa fa-check' })
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      'feature description'
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      _react2.default.createElement('i', { className: 'fa fa-check' })
+                    )
                   )
                 )
               )
@@ -37281,9 +37302,8 @@ var RelatedCard = function (_React$Component) {
           ' ',
           _react2.default.createElement('br', null),
           _react2.default.createElement(_reactStarRatings2.default, {
-            rating: 3.8
-            // rating={this.props.element.rating}
-            , starRatedColor: 'orange',
+            rating: this.props.rates / 5,
+            starRatedColor: 'orange',
             starDimension: '15px',
             starSpacing: '1px',
             numberOfStars: 5,
@@ -37316,10 +37336,6 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _axios = __webpack_require__(8);
-
-var _axios2 = _interopRequireDefault(_axios);
-
 var _reactStarRatings = __webpack_require__(73);
 
 var _reactStarRatings2 = _interopRequireDefault(_reactStarRatings);
@@ -37331,8 +37347,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-// import Example from './ComparisonModal'
 
 var Outfits = function (_React$Component) {
     _inherits(Outfits, _React$Component);

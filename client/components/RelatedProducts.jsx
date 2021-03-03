@@ -16,20 +16,6 @@ export default class RelatedCard extends React.Component {
 
   }
 
-  // componentDidMount() {
-  //     axios.get('/api/products/11049')
-  //     .then(({data})=>{
-  //     this.setState({data : data})
-  //    })
-
-  //    console.log('daaattaaa', data)
-  //     .catch((error)=>{
-  //       console.log(error)
-  //     })
-
-
-  //  }
-
 
   handleOpenModal() {
     this.setState({ showModal: true });
@@ -38,25 +24,9 @@ export default class RelatedCard extends React.Component {
   handleCloseModal() {
     this.setState({ showModal: false });
   }
-
-
-
-
-
+  
   render() {
-    // const result = this.state.data;
-    // var totalRating = 0;
-    // var totalUsers = this.state.data.length;
-    // result.map((element) => {
-    //   totalRating += element.rating;
-    // });
-    // // console.log("totalRating",totalRating);
-    // console.log("users",totalUsers);
-    // var currentRate = totalRating / totalUsers
-    // console.log(currentRate);
-
-
-    return (
+     return (
 
       // rendering the related products information    
       <div className='cards-container'>
@@ -68,8 +38,9 @@ export default class RelatedCard extends React.Component {
           >
             <span className="far fa-times-circle" onClick={this.handleCloseModal}></span>
             <h2>Comparing</h2>
-
+          
             <table className="table">
+              <tbody>
               <tr>
 
                 <th>Product short Name</th>
@@ -78,46 +49,46 @@ export default class RelatedCard extends React.Component {
               </tr>
               <tr>
 
-                <td><i class="fa fa-check"></i></td>
+                <td><i className="fa fa-check"></i></td>
                 <td>feature description</td>
-                <td><i class="fa fa-check"></i></td>
+                <td><i className="fa fa-check"></i></td>
               </tr>
               <tr>
 
-                <td><i class="fa fa-check"></i></td>
+                <td><i className="fa fa-check"></i></td>
                 <td>feature description</td>
-                <td><i class="fa fa-check"></i></td>
+                <td><i className="fa fa-check"></i></td>
               </tr>
               <tr>
 
-                <td><i class="fa fa-check"></i></td>
+                <td><i className="fa fa-check"></i></td>
                 <td>feature description</td>
-                <td><i class="fa fa-check"></i></td>
+                <td><i className="fa fa-check"></i></td>
               </tr>
               <tr>
 
-                <td><i class="fa fa-check"></i></td>
+                <td><i className="fa fa-check"></i></td>
                 <td>feature description</td>
-                <td><i class="fa fa-check"></i></td>
+                <td><i className="fa fa-check"></i></td>
               </tr>
               <tr>
 
-                <td><i class="fa fa-check"></i></td>
+                <td><i className="fa fa-check"></i></td>
                 <td>feature description</td>
-                <td><i class="fa fa-check"></i></td>
+                <td><i className="fa fa-check"></i></td>
               </tr>
+              </tbody>
             </table>
+          
           </ReactModal>
 
           <img className="image" src={this.props.element.url.url}></img>
         </div>
         <div className='category'>{this.props.element.category}</div>
         <div className='name'>{this.props.element.name}</div>
-        {/* <div className='description'>{this.props.element.description}</div> */}
         <span className='price'>${this.props.element.default_price}</span> <br></br>
         <StarRatings
-          rating={3.8}
-          // rating={this.props.element.rating}
+          rating={(this.props.rates)/5}
           starRatedColor="orange"
           starDimension="15px"
           starSpacing="1px"
