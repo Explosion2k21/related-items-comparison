@@ -2,7 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
 require("dotenv").config();
-const API_KEY = "835f62e24a2b2d105e9f79fe2e4454ad006fbfd7";
+const API_KEY = "3a09d90aa32dbe7c0c52acc2d435bfa2635756a1";
 const app = express();
 const port = process.env.PORT || 3003;
 const axios = require("axios");

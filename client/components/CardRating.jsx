@@ -14,7 +14,7 @@ import StarRatings from "react-star-ratings"
 
    }
     getRating(){
-    axios.get(`http://localhost:3003/related/reviews/${this.props.productId}`).then(({data})=>
+    axios.get(`http://46.101.159.182:3003/related/reviews/${this.props.productId}`).then(({data})=>
     this.setState({data:data}))
     .catch((err)=>{
       console.log(err)
