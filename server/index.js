@@ -2,16 +2,19 @@ const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
 require("dotenv").config();
-const API_KEY = "3a09d90aa32dbe7c0c52acc2d435bfa2635756a1";
+const API_KEY = process.env.API_KEY || "d730a5a7bf37cbef867777e0701d7f4d7171d2d3";
 const app = express();
 const port = process.env.PORT || 3003;
+
 const axios = require("axios");
 app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, "../public")));
 var cors = require("cors");
-
 app.use(cors());
+
 // get request for the related products and their styles
+
+
 app.get("/related/products/:product_id", async (req, res) => {
   var data = [];
   await axios

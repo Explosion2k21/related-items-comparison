@@ -19,7 +19,7 @@ export default class RelatedCardList extends React.Component {
 
   // Getting the related products for a specific product 
   fetchData() {
-    axios.get(`http://46.101.159.182:3003/related/products/11048`)
+    axios.get(`http://68.183.210.155:3003/related/products/11048`)
       .then(({ data }) => {
         console.log("data", data)
         this.setState({ data: data })
@@ -30,7 +30,7 @@ export default class RelatedCardList extends React.Component {
   }
   //getting ratings 
   ratingReviews() {
-    axios.get(`http://46.101.159.182:3003/related/reviews/11048`)
+    axios.get(`http://68.183.210.155:3003/related/reviews/11048`)
       .then(({ data }) => {
         console.log('ratingdata', data)
         this.setState({ rating: data })
